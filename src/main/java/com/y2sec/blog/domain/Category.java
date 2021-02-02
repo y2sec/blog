@@ -20,4 +20,10 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    public static Category createCategory(String name) {
+        Category category = new Category();
+        category.setName(name);
+        return category;
+    }
 }
