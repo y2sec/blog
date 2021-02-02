@@ -19,6 +19,10 @@ public class PostRepository {
         return post.getId();
     }
 
+    public void delete(Long id) {
+        em.remove(findById(id));
+    }
+
     public Post findById(Long id) {
         return em.find(Post.class, id);
     }

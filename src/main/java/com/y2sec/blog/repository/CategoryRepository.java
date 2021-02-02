@@ -18,6 +18,10 @@ public class CategoryRepository {
         return category.getId();
     }
 
+    public void delete(Long id) {
+        em.remove(findById(id));
+    }
+
     public Category findById(Long id) {
         return em.find(Category.class, id);
     }
