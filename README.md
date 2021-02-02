@@ -11,7 +11,9 @@ URL : [http://localhost:8080](http://localhost:8080)
   + JPA
   + hibernate
   + Lombok
+  + Docker
   + PostgreSQL
+  + H2 DataBase(Test)
 
 + 현재 개발 중입니다!!
   + 도메인 설계 완료
