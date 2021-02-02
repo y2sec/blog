@@ -15,8 +15,14 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    @Transactional
     public Long saveCategory(Category category) {
         return categoryRepository.save(category);
+    }
+
+    @Transactional
+    public void deleteCategory(Long id) {
+        categoryRepository.delete(id);
     }
 
     public Category findById(Long id) {

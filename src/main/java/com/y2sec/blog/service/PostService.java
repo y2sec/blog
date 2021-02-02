@@ -17,9 +17,13 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public void savePost(String title, String content, Category category) {
-        Post post = Post.createPost(title, content, category);
-        postRepository.save(post);
+    public Long savePost(Post post) {
+        return postRepository.save(post);
+    }
+
+    @Transactional
+    public void deletePost(Long id) {
+        postRepository.delete(id);
     }
 
     public Post findById(Long id) {
