@@ -41,6 +41,6 @@ public class CategoryController {
         List<Post> posts = postService.findByCategory(category);
         model.addAttribute("posts", posts);
 
-        return "category/CategoryForm";
+        return "category/categoryForm";
     }
 }
