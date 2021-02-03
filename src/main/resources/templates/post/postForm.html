@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <span th:text="${post.getCategory().getName()}"></span>
+    <span th:text="${post.getTitle()}"></span>
+    <span th:text="${post.getContent()}"></span>
+    <span th:text="${post.getPostDate()}"></span>
+    <a class="#" href="/">홈으로</a>
+    <a class="#" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
+</div>
+
+</body>
+</html>

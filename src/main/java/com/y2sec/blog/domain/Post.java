@@ -42,6 +42,7 @@ public class Post {
         post.setTitle(title);
         post.setContent(content);
         post.setCategory(category);
+        post.setPostDate(LocalDateTime.now());
         post.setViews(0);
 
         return post;
