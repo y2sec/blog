@@ -26,4 +26,10 @@ public class Category {
         category.setName(name);
         return category;
     }
+
+    public Long updateCategory(String name) {
+        this.name = name;
+
+        return this.id;
+    }
 }

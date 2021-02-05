@@ -52,7 +52,7 @@ public class Post {
 
     }
 
-    public Long update(String title, String content, Category category) {
+    public Long updatePost(String title, String content, Category category) {
         this.title = title;
         this.content = content;
         this.category = category;
