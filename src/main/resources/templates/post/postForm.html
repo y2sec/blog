@@ -7,11 +7,31 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
-    <span th:text="${post.getTitle()}"></span>
-    <a th:href="@{/category/{id} (id=${post.category.id})}" th:text="${post.getCategory().getName()}"></a>
 
-    <span th:text="${post.getContent()}"></span>
-    <span th:text="${post.getPostDate()}"></span>
+    <div>
+        <a th:href="@{/category/{id} (id=${post.category.id})}" th:text="${post.getCategory().getName()}"></a>
+    </div>
+
+    <div>
+        <p th:text="${post.getTitle()}"></p>
+    </div>
+
+    <div>
+        <p th:text="${post.getPostDate()}"></p>
+    </div>
+
+    <div id="content">
+        <textarea style="display:none;" th:text="${post.getContent()}"></textarea>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            var testView = editormd.markdownToHTML("content", {
+                // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
+                // htmlDecode : true,  // Enable / disable HTML tag encode.
+                // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
+            });
+        });
+    </script>
 
     <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
     <form method="post" th:action="@{/post/{id}/delete (id=${post.id})}">

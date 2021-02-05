@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
     <form th:action="@{/post/{id}/edit (id=${postForm.id})}" th:object="${postForm}" method="post">
         <div class="form-group">
             <input type="hidden" th:field="*{id}"/>
         </div>
         <div class="form-group">
-            <label th:for="categoryId">카테고리
-                <select th:field="*{categoryId}" class="form-control" th:each="category : ${categoryList}">
-                    <option th:value="${category.id}" th:text="${category.getName()}"></option>
-                </select>
-            </label>
+            <label th:for="categoryId">카테고리</label>
+            <select class="form-select" aria-label="Default select example" th:field="*{categoryId}">
+                <option th:each="category : ${categoryList}" th:value="${category.id}"
+                        th:text="${category.getName()}"></option>
+            </select>
         </div>
+
         <div class="form-group">
             <label th:for="title">제목</label>
             <input type="text" th:field="*{title}" class="form-control"
                    placeholder="제목을 입력하세요">
         </div>
+
         <div class="form-group">
             <label th:for="content">내용</label>
-            <input type="text" th:field="*{content}" class="form-control"
-                   placeholder="내용을 입력하세요">
+            <div id="editor">
+                <textarea style="display: none" th:field="*{content}"></textarea>
+            </div>
+
         </div>
+        <script>
+            $(function () {
+                var editor = editormd("editor", {
+                    width  : "100%",
+                    height: "500px",
+                    path: "/editormd/lib/"
+                });
+            });
+        </script>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>
