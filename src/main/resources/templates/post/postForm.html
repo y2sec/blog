@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div class="container">
-    <span th:text="${post.getCategory().getName()}"></span>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
     <span th:text="${post.getTitle()}"></span>
+    <a th:href="@{/category/{id} (id=${post.category.id})}" th:text="${post.getCategory().getName()}"></a>
+
     <span th:text="${post.getContent()}"></span>
     <span th:text="${post.getPostDate()}"></span>
-    <a class="#" href="/">홈으로</a>
-    <a class="#" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
+
+    <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
+    <form method="post" th:action="@{/post/{id}/delete (id=${post.id})}">
+        <input type="hidden" name="_method" value="delete">
+        <button class="btn btn-danger" type="submit">삭제</button>
+    </form>
+    <br>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 
 </body>

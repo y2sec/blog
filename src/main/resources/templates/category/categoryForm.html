@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${postList}">
+            <td>
+                <a href="#" th:href="@{/post/{id} (id=${post.getId()})}" th:text="${post.getTitle()}"></a>
+            </td>
+            <td th:text="${post.getPostDate()}"></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#" th:href="@{/post/new}">게시글 쓰기</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
