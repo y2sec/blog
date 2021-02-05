@@ -7,10 +7,7 @@ import com.y2sec.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -45,6 +42,12 @@ public class PostController {
         return "post/postForm";
     }
 
+    @PostMapping("/post/{postId}/delete")
+    public String delete(@PathVariable("postId") Long postId) {
+        postService.deletePost(postId);
+        return "redirect:/";
+    }
+
     @GetMapping("/post/{postId}/edit")
     public String updateForm(@PathVariable("postId") Long postId, Model model) {
         Post post = postService.findById(postId);
@@ -64,9 +67,9 @@ public class PostController {
     @PostMapping("/post/{postId}/edit")
     public String update(@ModelAttribute("postForm") PostForm postForm, @PathVariable("postId") Long postId, Model model) {
         Post post = postService.findById(postId);
-        post.update(postForm.getTitle(), postForm.getContent(), categoryService.findById(postForm.getCategoryId()));
+        Long id = post.updatePost(postForm.getTitle(), postForm.getContent(), categoryService.findById(postForm.getCategoryId()));
         postService.savePost(post);
 
-        return "redirect:/post/" + postId;
+        return "redirect:/post/" + id;
     }
 }
