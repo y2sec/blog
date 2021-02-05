@@ -1,11 +1,14 @@
 package com.y2sec.blog.domain;
 
+import javassist.Loader;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,7 +33,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    private LocalDateTime postDate;
+    private String postDate;
 
     public void setCategory(Category category) {
         this.category = category;
@@ -38,11 +41,12 @@ public class Post {
     }
 
     public static Post createPost(String title, String content, Category category) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
         post.setCategory(category);
-        post.setPostDate(LocalDateTime.now());
+        post.setPostDate(format.format(new Date()));
         post.setViews(0);
 
         return post;
