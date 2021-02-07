@@ -3,44 +3,107 @@
 <head th:replace="fragments/header :: header">
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+    <div class="row">
+        <div th:replace="fragments/sideNav :: sideNav(${categoryList})"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="text-center">
+                <a class="hoverlink fs-5" th:href="@{/category/{id} (id=${post.category.id})}"
+                   th:text="${post.getCategory().getName()}" ></a>
+            </div>
 
-    <div>
-        <a th:href="@{/category/{id} (id=${post.category.id})}" th:text="${post.getCategory().getName()}"></a>
+            <div class="row g-3">
+                <div class="col">
+                    <p class="h1 text-center" th:text="${post.getTitle()}" th:field="title"></p>
+                </div>
+
+            </div>
+            <div class="row g-3">
+                <div class="col">
+                    <p class="text-end" th:text="${post.getPostDate()}" th:field="date"></p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div id="content">
+                <textarea style="display:none;" th:text="${post.getContent()}"></textarea>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    var testView = editormd.markdownToHTML("content", {
+                        // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
+                        // htmlDecode : true,  // Enable / disable HTML tag encode.
+                        // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
+                    });
+                });
+            </script>
+
+            <hr>
+
+            <div class="row g-3">
+                <div class="col ">
+                    <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
+                </div>
+                <div class="col">
+                    <form method="post" th:action="@{/post/{id}/delete (id=${post.id})}">
+                        <input type="hidden" name="_method" value="delete">
+                        <button class="btn btn-danger" type="submit">삭제</button>
+                    </form>
+                </div>
+            </div>
+
+            <form th:action="@{/post/{id}/comment (id=${post.id})}" th:object="${commentForm}" method="post" class="comment bg-light">
+                <div class="row g-3">
+                    <div class="form-group col-md-4">
+                        <label th:for="name">아이디</label>
+                        <input type="text" th:field="*{name}" class="form-control" placeholder="아이디를 입력하세요" maxlength="16">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label th:for="passwd">비밀번호</label>
+                        <input type="password" th:field="*{passwd}" class="form-control" placeholder="비밀번호를 입력하세요" maxlength="16">
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="form-group col">
+                        <label th:for="content">댓글</label>
+                        <textarea type="text" th:field="*{content}" class="form-control" placeholder="댓글을 입력하세요" maxlength="200" style="min-height: 120px; max-height: 120px;"></textarea>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">등록</button>
+                </div>
+                <br>
+            </form>
+
+            <div class="bg-light comment">
+                <label th:for="comment">댓글</label>
+                <div class="comment bg-white" th:each="comment : ${post.getComments()}">
+                    <div class="row g-3">
+                        <div class="col">
+                            <p th:text="${comment.name}" style="text-decoration-line: underline"></p>
+                        </div>
+                        <div class="col text-end">
+                            <p th:text="${comment.commentDate}"></p>
+                        </div>
+                    </div>
+
+                    <div class="col" id="comment">
+                        <p th:text="${#strings.replace(comment.content, T(System).getProperty('line.separator'), '&lt;br /&gt;')}" th:field="comment"></p>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+        </main>
+
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
-
-    <div>
-        <p th:text="${post.getTitle()}"></p>
-    </div>
-
-    <div>
-        <p th:text="${post.getPostDate()}"></p>
-    </div>
-
-    <div id="content">
-        <textarea style="display:none;" th:text="${post.getContent()}"></textarea>
-    </div>
-    <script type="text/javascript">
-        $(function() {
-            var testView = editormd.markdownToHTML("content", {
-                // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
-                // htmlDecode : true,  // Enable / disable HTML tag encode.
-                // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
-            });
-        });
-    </script>
-
-    <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
-    <form method="post" th:action="@{/post/{id}/delete (id=${post.id})}">
-        <input type="hidden" name="_method" value="delete">
-        <button class="btn btn-danger" type="submit">삭제</button>
-    </form>
-    <br>
-    <div th:replace="fragments/footer :: footer"></div>
 </div>
-
 </body>
 </html>
