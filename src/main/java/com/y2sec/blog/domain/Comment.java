@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Getter @Setter
@@ -21,7 +22,7 @@ public class Comment {
 
     private String password;
 
-    private LocalDateTime commentDate;
+    private String commentDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
@@ -32,11 +33,14 @@ public class Comment {
         post.getComments().add(this);
     }
 
-    public static Comment createComment(String name, String content, String password) {
+    public static Comment createComment(String name, String content, String password, Post post) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Comment comment = new Comment();
         comment.setName(name);
         comment.setContent(content);
         comment.setPassword(password);
+        comment.setPost(post);
+        comment.setCommentDate(format.format(new Date()));
 
         return comment;
     }
