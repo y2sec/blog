@@ -1,8 +1,10 @@
 package com.y2sec.blog.controller;
 
 import com.y2sec.blog.domain.Category;
+import com.y2sec.blog.domain.Comment;
 import com.y2sec.blog.domain.Post;
 import com.y2sec.blog.service.CategoryService;
+import com.y2sec.blog.service.CommentService;
 import com.y2sec.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ public class PostController {
 
     private final CategoryService categoryService;
     private final PostService postService;
+    private final CommentService commentService;
 
     @GetMapping("/post/new")
     public String createForm(Model model) {
@@ -37,7 +40,9 @@ public class PostController {
     @GetMapping("/post/{postId}")
     public String postForm(@PathVariable("postId") Long postId, Model model) {
         Post post = postService.findById(postId);
+        model.addAttribute("categoryList", categoryService.findCategory());
         model.addAttribute("post", post);
+        model.addAttribute("commentForm", new CommentForm());
 
         return "post/postForm";
     }
@@ -71,5 +76,15 @@ public class PostController {
         postService.savePost(post);
 
         return "redirect:/post/" + id;
+    }
+
+    @PostMapping("/post/{postId}/comment")
+    public String comment(@PathVariable("postId") Long postId, @Valid CommentForm commentForm) {
+
+        Post post = postService.findById(postId);
+        Comment comment = Comment.createComment(commentForm.getName(), commentForm.getContent(), commentForm.getPasswd(), post);
+        commentService.saveComment(comment);
+
+        return "redirect:/post/" + postId;
     }
 }
