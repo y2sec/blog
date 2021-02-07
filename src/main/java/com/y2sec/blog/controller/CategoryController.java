@@ -39,6 +39,8 @@ public class CategoryController {
     public String categoryForm(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.findById(id);
         List<Post> posts = postService.findByCategory(category);
+        model.addAttribute("categoryList", categoryService.findCategory());
+        model.addAttribute("category", category);
         model.addAttribute("postList", posts);
 
         return "category/categoryForm";
