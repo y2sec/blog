@@ -45,7 +45,7 @@
 
             <hr>
 
-            <div class="row g-3">
+            <div class="row g-3" th:if="${#authorization.expr('isAuthenticated()')}">
                 <div class="col ">
                     <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="comment bg-white" th:each="comment : ${post.getComments()}">
                     <div class="row g-3">
                         <div class="col">
-                            <p th:text="${comment.name}" style="text-decoration-line: underline"></p>
+                            <p th:text="${comment.name}" style="font-weight: bold"></p>
                         </div>
                         <div class="col text-end">
                             <p th:text="${comment.commentDate}"></p>
@@ -94,12 +94,10 @@
                     </div>
 
                     <div class="col" id="comment">
-                        <p th:text="${#strings.replace(comment.content, T(System).getProperty('line.separator'), '&lt;br /&gt;')}" th:field="comment"></p>
+                        <p data-th-utext="${#strings.replace(comment.content,'&#10;', '<br />')}"></p>
                     </div>
                 </div>
             </div>
-
-            <br>
         </main>
 
         <div th:replace="fragments/footer :: footer"></div>

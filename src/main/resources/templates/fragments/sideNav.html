@@ -6,13 +6,11 @@
             <li class="nav-item" th:each="category : ${categoryList}">
                 <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id} (id=${category.id})}">
                     <span th:text="${category.name}"></span>
-                    (<span th:text="${category.posts.size()}"></span>)
+                    <span style="font-size: 6px">(<span th:text="${category.posts.size()}"></span>)</span>
                 </a>
             </li>
         </ul>
-
-        <a class="btn btn-secondary" th:href="@{/category/new}">카테고리 추가</a>
-
+        <a th:if="${#authorization.expr('isAuthenticated()')}" class="btn btn-secondary" th:href="@{/category/new}">카테고리 추가</a>
     </div>
 </nav>
 

@@ -29,7 +29,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a class="btn btn-dark" th:href="@{/post/new}">게시글 쓰기</a>
+            <a class="btn btn-dark" th:href="@{/post/new}" th:if="${#authorization.expr('isAuthenticated()')}">게시글 쓰기</a>
 
         </main>
         <div th:replace="fragments/footer :: footer"></div>
