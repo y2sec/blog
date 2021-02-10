@@ -46,12 +46,12 @@
             <hr>
 
             <div class="row g-3" th:if="${#authorization.expr('isAuthenticated()')}">
-                <div class="col ">
-                    <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
-                </div>
                 <div class="col">
+                    <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
+
+                </div>
+                <div class="col text-end">
                     <form method="post" th:action="@{/post/{id}/delete (id=${post.id})}">
-                        <input type="hidden" name="_method" value="delete">
                         <button class="btn btn-danger" type="submit">삭제</button>
                     </form>
                 </div>

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse text-center" th:fragment="sideNav (categoryList)">
-    <div class="position-sticky pt-3">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse text-center" th:fragment="sideNav (categoryList)">
+    <div>
+        <span style="font-weight: bold">카테고리</span>
+    </div>
+    <div class="position-sticky">
         <ul class="nav flex-column">
             <li class="nav-item" th:each="category : ${categoryList}">
                 <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id} (id=${category.id})}">
@@ -13,4 +16,3 @@
         <a th:if="${#authorization.expr('isAuthenticated()')}" class="btn btn-secondary" th:href="@{/category/new}">카테고리 추가</a>
     </div>
 </nav>
-
