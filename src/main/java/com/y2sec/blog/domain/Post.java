@@ -16,7 +16,7 @@ import java.util.List;
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
 
@@ -52,8 +52,8 @@ public class Post {
         return post;
     }
 
-    public void delete() {
-
+    public void viewsUp() {
+        this.views++;
     }
 
     public Long updatePost(String title, String content, Category category) {
