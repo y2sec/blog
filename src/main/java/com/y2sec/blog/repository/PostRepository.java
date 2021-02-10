@@ -18,9 +18,7 @@ public class PostRepository {
         if (post.getId() == null)
             em.persist(post);
         else {
-            System.out.println("merge");
             em.merge(post);
-            System.out.println("finish");
         }
 
         return post.getId();
