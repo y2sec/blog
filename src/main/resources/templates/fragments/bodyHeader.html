@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="header" th:fragment="bodyHeader">
-    <a href="/"><h3 class="text-muted">y2sec's Blog</h3></a>
+    <div class="text-end" style="font-size:10px;">
+        <div th:if="${#authorization.expr('isAuthenticated()')}">
+            <span>ADMIN</span>
+            <a href="/member/logout" >로그아웃</a>
+        </div>
+        <div th:unless="${#authorization.expr('isAuthenticated()')}">
+            <span>GUEST</span>
+            <a class="" href="/member/login" >로그인</a>
+        </div>
+        <hr>
+    </div>
+    <div class="text-center head">
+        <a href="/">
+            <h1>y2sec's 개발블로그</h1>
+        </a>
+    </div>
+
+
+
 </div>
