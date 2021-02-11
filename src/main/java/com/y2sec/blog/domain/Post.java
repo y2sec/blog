@@ -1,12 +1,10 @@
 package com.y2sec.blog.domain;
 
-import javassist.Loader;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
