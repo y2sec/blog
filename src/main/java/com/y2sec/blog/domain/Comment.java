@@ -44,4 +44,10 @@ public class Comment {
 
         return comment;
     }
+    public Long updateComment(String name, String content) {
+        this.name = name;
+        this.content = content;
+
+        return post.getId();
+    }
 }

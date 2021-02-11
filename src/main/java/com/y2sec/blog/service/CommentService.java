@@ -17,8 +17,17 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public void saveComment(Comment comment) {
-        commentRepository.save(comment);
+    public Long saveComment(Comment comment) {
+        return commentRepository.save(comment);
+    }
+
+    @Transactional
+    public Long deleteComment(Long id) {
+        return commentRepository.delete(id);
+    }
+
+    public Comment findById(Long id) {
+        return commentRepository.findById(id);
     }
 
     public List<Comment> findByPost(Post post) {
