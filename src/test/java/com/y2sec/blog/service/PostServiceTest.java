@@ -73,4 +73,19 @@ class PostServiceTest {
 
         Assertions.assertThat(posts.size()).isEqualTo(2);
     }
+
+    @Test
+    void 게시물_페이징() {
+        Category category = Category.createCategory("스프링");
+        categoryService.saveCategory(category);
+        Post post = Post.createPost("스프링 제목", "스프링 내용", category);
+        Long postId = postService.savePost(post);
+        Post post1 = Post.createPost("스프링 제목2", "스프링 내용2", category);
+        postService.savePost(post1);
+
+        List<Post> posts = postService.findPosts().subList(0, 2);
+        for (Post p : posts) {
+            System.out.println(p.getTitle());
+        }
+    }
 }
