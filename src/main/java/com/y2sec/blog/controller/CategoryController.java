@@ -35,14 +35,25 @@ public class CategoryController {
         return "redirect:/";
     }
 
-    @GetMapping("/category/{id}")
-    public String categoryForm(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/category/{id}/{pageNum}")
+    public String categoryForm(@PathVariable("id") Long id, @PathVariable("pageNum") int pageNum, Model model) {
         Category category = categoryService.findById(id);
         List<Post> posts = postService.findByCategory(category);
         model.addAttribute("categoryList", categoryService.findCategory());
+        model.addAttribute("pageNumber", 1);
+        model.addAttribute("postSize", posts.size());
         model.addAttribute("category", category);
-        model.addAttribute("postList", posts);
+        model.addAttribute("postList", posts.subList(Math.min((posts.size() / 10) * 10, (pageNum-1) * 10), Math.min(posts.size(), pageNum * 10)));
+
+
 
         return "category/categoryForm";
     }
+
+    @GetMapping("category/{id}/delete")
+    public String delete(@PathVariable("id") Long id) {
+        categoryService.deleteCategory(id);
+        return "redirect:/";
+    }
+
 }
