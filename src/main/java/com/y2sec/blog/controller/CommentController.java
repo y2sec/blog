@@ -34,16 +34,30 @@ public class CommentController {
     @PostMapping("/comment/{id}/edit")
     public String update(@PathVariable("id") Long id, @Valid CommentForm commentForm) {
         Comment comment = commentService.findById(id);
-        Long postId = comment.updateComment(commentForm.getName(), commentForm.getContent());
-        commentService.saveComment(comment);
 
-        return "comment/updateClose";
+        if (commentForm.getPasswd().equals(comment.getPassword())) {
+            Long postId = comment.updateComment(commentForm.getName(), commentForm.getContent());
+            commentService.saveComment(comment);
+
+            return "comment/updateClose";
+        }
+        return "redirect:/comment/fail";
     }
 
-    @GetMapping("/comment/{id}/delete")
-    public String deleteComment(@PathVariable("id") Long id) {
-        Long postId = commentService.deleteComment(id);
+    @PostMapping("/comment/{id}/delete")
+    public String deleteComment(@PathVariable("id") Long id, @Valid CommentForm commentForm) {
+        Comment comment = commentService.findById(id);
 
-        return "comment/deleteClose";
+        if (commentForm.getPasswd().equals(comment.getPassword())) {
+            Long postId = commentService.deleteComment(id);
+
+            return "comment/deleteClose";
+        }
+        return "redirect:/comment/fail";
+    }
+
+    @GetMapping("/comment/fail")
+    public String fail() {
+        return "comment/fail";
     }
 }
