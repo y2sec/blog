@@ -20,7 +20,7 @@
         <div th:replace="fragments/sideNav :: sideNav(${categoryList})"></div>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="text-center">
-                <a class="hoverlink fs-5" th:href="@{/category/{id} (id=${post.category.id})}"
+                <a class="hoverlink fs-5" th:href="@{/category/{id}/1 (id=${post.category.id})}"
                    th:text="${post.getCategory().getName()}"></a>
             </div>
 
