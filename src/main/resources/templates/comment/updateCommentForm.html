@@ -33,11 +33,9 @@
                 <button type="submit" class="btn btn-warning" style="margin-top: 10px">수정</button>
             </div>
             <div class="col text-end">
-                <a class="btn btn-danger" th:href="@{/comment/{id}/delete (id = ${id})}" style="margin-top: 10px">삭제</a>
+                <button type="submit" class="btn btn-danger" th:formaction="@{/comment/{id}/delete (id = ${id})}" style="margin-top: 10px">삭제</button>
             </div>
         </div>
-
-
         <br>
     </form>
 </div>
