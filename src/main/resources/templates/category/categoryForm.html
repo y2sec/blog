@@ -10,7 +10,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
     <div class="row">
         <div th:replace="fragments/sideNav :: sideNav(${categoryList})"></div>
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mh">
             <div class="text-end">
                 <a class="btn btn-danger" th:href="@{/category/{id}/delete (id = ${category.id})}" th:if="${#authorization.expr('isAuthenticated()')}">카테고리 삭제</a>
             </div>
