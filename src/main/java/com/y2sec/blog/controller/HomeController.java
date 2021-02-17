@@ -31,7 +31,7 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/total/{id}")
     public String pageHome(@PathVariable("id") Long id, Model model) {
         List<Post> posts = postService.findPosts();
 
