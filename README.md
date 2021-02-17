@@ -2,7 +2,7 @@
 
 --------------
 
-URL : [http://localhost:8080](http://localhost:8080)
+URL : [y2sec's Blog](http://3.36.62.238:8080/:8080)
 
 + 개발 스택
   + Java
@@ -11,10 +11,11 @@ URL : [http://localhost:8080](http://localhost:8080)
   + Thymeleaf
   + JPA
   + hibernate
-  + Lombok
-  + Docker
-  + PostgreSQL
+  + AWS EC2
+  + AWS RDS
+    + PostgreSQL
   + H2 DataBase(Test)
+
 
 + 현재 개발 중입니다!!
   + 도메인 설계
