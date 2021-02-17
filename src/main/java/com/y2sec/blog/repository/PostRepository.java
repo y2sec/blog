@@ -33,18 +33,18 @@ public class PostRepository {
     }
 
     public List<Post> findByTitle(String title) {
-        return em.createQuery("select p from Post p where p.title =:title", Post.class)
+        return em.createQuery("select p from Post p where p.title =:title order by p.id desc", Post.class)
                 .setParameter("title", title)
                 .getResultList();
     }
 
     public List<Post> findByCategory(Category category) {
-        return em.createQuery("select p from Post p where p.category =:category", Post.class)
+        return em.createQuery("select p from Post p where p.category =:category order by p.id desc", Post.class)
                 .setParameter("category", category)
                 .getResultList();
     }
 
     public List<Post> findAll() {
-        return em.createQuery("select p from Post p", Post.class).getResultList();
+        return em.createQuery("select p from Post p order by p.id desc", Post.class).getResultList();
     }
 }
