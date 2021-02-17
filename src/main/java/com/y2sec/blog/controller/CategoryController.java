@@ -36,14 +36,14 @@ public class CategoryController {
     }
 
     @GetMapping("/category/{id}/{pageNum}")
-    public String categoryForm(@PathVariable("id") Long id, @PathVariable("pageNum") int pageNum, Model model) {
+    public String categoryForm(@PathVariable("id") Long id, @PathVariable("pageNum") Long pageNum, Model model) {
         Category category = categoryService.findById(id);
         List<Post> posts = postService.findByCategory(category);
         model.addAttribute("categoryList", categoryService.findCategory());
         model.addAttribute("pageNumber", 1);
         model.addAttribute("postSize", posts.size());
         model.addAttribute("category", category);
-        model.addAttribute("postList", posts.subList(Math.min((posts.size() / 10) * 10, (pageNum-1) * 10), Math.min(posts.size(), pageNum * 10)));
+        model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (pageNum-1) * 10), (int)Math.min(posts.size(), pageNum * 10)));
 
 
 

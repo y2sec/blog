@@ -32,13 +32,13 @@ public class HomeController {
     }
 
     @GetMapping("/{id}")
-    public String pageHome(@PathVariable("id") int id, Model model) {
+    public String pageHome(@PathVariable("id") Long id, Model model) {
         List<Post> posts = postService.findPosts();
 
         model.addAttribute("categoryList", categoryService.findCategory());
         model.addAttribute("pageNumber", id);
         model.addAttribute("postSize", posts.size());
-        model.addAttribute("postList", posts.subList(Math.min((posts.size() / 10) * 10, (id-1) * 10), Math.min(posts.size(), id * 10)));
+        model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (id-1) * 10), (int)Math.min(posts.size(), id * 10)));
 
         return "home";
     }
