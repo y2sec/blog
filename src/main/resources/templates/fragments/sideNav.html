@@ -5,7 +5,7 @@
         <span style="font-weight: bold">카테고리</span>
     </div>
     <div class="position-sticky">
-        <ul class="nav flex-column">
+        <ul class="nav flex-column mh-2">
             <li class="nav-item" th:each="category : ${categoryList}">
                 <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id}/1 (id=${category.id})}">
                     <span th:text="${category.name}"></span>
