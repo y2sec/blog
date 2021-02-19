@@ -14,7 +14,11 @@ public class CategoryRepository {
     private final EntityManager em;
 
     public Long save(Category category) {
-        em.persist(category);
+        if (category.getId() == null)
+            em.persist(category);
+        else
+            em.merge(category);
+
         return category.getId();
     }
 

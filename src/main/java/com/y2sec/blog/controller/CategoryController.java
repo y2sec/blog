@@ -50,9 +50,31 @@ public class CategoryController {
         return "category/categoryForm";
     }
 
-    @GetMapping("category/{id}/delete")
+    @GetMapping("/category/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         categoryService.deleteCategory(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/category/{id}/edit")
+    public String updateForm(@PathVariable("id") Long id, Model model) {
+        Category category = categoryService.findById(id);
+        CategoryForm categoryForm = new CategoryForm();
+
+        categoryForm.setId(category.getId());
+        categoryForm.setName(category.getName());
+        model.addAttribute("categoryForm", categoryForm);
+
+        return "category/updateCategoryForm";
+    }
+
+    @PostMapping("/category/{id}/edit")
+    public String update(@PathVariable("id") Long id, @Valid CategoryForm categoryForm) {
+        Category category = categoryService.findById(id);
+
+        category.updateCategory(categoryForm.getName());
+        categoryService.saveCategory(category);
+
         return "redirect:/";
     }
 
