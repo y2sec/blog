@@ -11,8 +11,12 @@
     <div class="row">
         <div th:replace="fragments/sideNav :: sideNav(${categoryList})"></div>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mh">
-            <div class="text-end">
-                <a class="btn btn-danger" th:href="@{/category/{id}/delete (id = ${category.id})}" th:if="${#authorization.expr('isAuthenticated()')}">카테고리 삭제</a>
+            <div class="row g-3">
+                <div class="col text-end">
+                    <a class="btn btn-warning" th:href="@{/category/{id}/edit (id = ${category.id})}" th:if="${#authorization.expr('isAuthenticated()')}">카테고리 수정</a>
+                    <a class="btn btn-danger" th:href="@{/category/{id}/delete (id = ${category.id})}" th:if="${#authorization.expr('isAuthenticated()')}">카테고리 삭제</a>
+                </div>
+
             </div>
             <table class="table table-hover align-middle caption-top">
                 <caption th:text="${category.name}"></caption>
@@ -33,44 +37,47 @@
                 </tbody>
             </table>
 
-            <div class="row g-3">
-                <div class="col-7">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled" th:if="${pageNumber} == 1">
-                                <a class="page-link" th:href="@{/{pageNum} (pageNum = ${pageNumber}-1)}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item" th:unless="${pageNumber} == 1">
-                                <a class="page-link" th:href="@{/{pageNum} (pageNum = ${pageNumber}-1)}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <th:block th:each="pageNum : ${#numbers.sequence(1, postSize, 10)}">
-                                <li class="page-item active" th:if="(${pageNum}-1)/10+1 == ${pageNumber}" aria-current="page">
-                                    <a class="page-link" th:href="@{/{pageNum} (pageNum=(${pageNum}-1)/10+1)}" th:text="(${pageNum}-1)/10+1"></a>
-                                </li>
-                                <li class="page-item" th:unless="(${pageNum}-1)/10+1 == ${pageNumber}">
-                                    <a class="page-link" th:href="@{/{pageNum} (pageNum=(${pageNum}-1)/10+1)}" th:text="(${pageNum}-1)/10+1"></a>
-                                </li>
-                            </th:block>
-                            <li class="page-item disabled" th:if="${postSize} <= ${pageNumber} * 10">
-                                <a class="page-link" th:href="@{/{pageNum} (pageNum = ${pageNumber}+1)}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item" th:unless="${postSize} <= ${pageNumber} * 10">
-                                <a class="page-link" th:href="@{/{pageNum} (pageNum = ${pageNumber}+1)}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col text-end">
-                    <a class="btn btn-primary" th:href="@{/post/new}" th:if="${#authorization.expr('isAuthenticated()')}">게시글 쓰기</a>
-                </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled" th:if="${pageNumber} == 1">
+                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}-1)}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:unless="${pageNumber} == 1">
+                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}-1)}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <th:block th:each="pageNum : ${#numbers.sequence(1, postSize, 10)}">
+                        <li class="page-item active" th:if="(${pageNum}-1)/10+1 == ${pageNumber}" aria-current="page">
+                            <a class="page-link" th:href="@{/total/{pageNum} (pageNum=(${pageNum}-1)/10+1)}"
+                               th:text="(${pageNum}-1)/10+1"></a>
+                        </li>
+                        <li class="page-item" th:unless="(${pageNum}-1)/10+1 == ${pageNumber}">
+                            <a class="page-link" th:href="@{/total/{pageNum} (pageNum=(${pageNum}-1)/10+1)}"
+                               th:text="(${pageNum}-1)/10+1"></a>
+                        </li>
+                    </th:block>
+                    <li class="page-item disabled" th:if="${postSize} <= ${pageNumber} * 10">
+                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}+1)}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:unless="${postSize} <= ${pageNumber} * 10">
+                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}+1)}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="text-end">
+                <a class="btn btn-primary" th:href="@{/post/new}" th:if="${#authorization.expr('isAuthenticated()')}">게시글
+                    쓰기</a>
             </div>
 
         </main>
