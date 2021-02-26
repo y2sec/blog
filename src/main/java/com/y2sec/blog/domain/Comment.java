@@ -6,6 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @Entity
 @Getter @Setter
@@ -34,7 +36,9 @@ public class Comment {
     }
 
     public static Comment createComment(String name, String content, String password, Post post) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+        Locale.setDefault(Locale.KOREA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
         Comment comment = new Comment();
         comment.setName(name);
         comment.setContent(content);

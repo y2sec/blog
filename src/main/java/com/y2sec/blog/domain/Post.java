@@ -5,9 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter @Setter
@@ -40,7 +38,9 @@ public class Post {
     }
 
     public static Post createPost(String title, String content, Category category) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+        Locale.setDefault(Locale.KOREA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
