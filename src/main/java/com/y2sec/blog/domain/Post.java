@@ -23,7 +23,7 @@ public class Post {
 
     private int views;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
