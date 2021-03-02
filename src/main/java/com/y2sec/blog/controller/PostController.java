@@ -1,7 +1,6 @@
 package com.y2sec.blog.controller;
 
 import com.y2sec.blog.domain.Category;
-import com.y2sec.blog.domain.Comment;
 import com.y2sec.blog.domain.Post;
 import com.y2sec.blog.service.CategoryService;
 import com.y2sec.blog.service.CommentService;
@@ -9,7 +8,10 @@ import com.y2sec.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
@@ -42,12 +44,14 @@ public class PostController {
         Post post = postService.findById(postId);
         model.addAttribute("categoryList", categoryService.findCategory());
         model.addAttribute("post", post);
-        model.addAttribute("commentForm", new CommentForm());
+        CommentForm commentForm = new CommentForm();
+        commentForm.setPostId(postId);
+        model.addAttribute("commentForm", commentForm);
 
         return "post/postForm";
     }
 
-    @PostMapping("/post/{postId}/delete")
+    @GetMapping("/post/{postId}/delete")
     public String delete(@PathVariable("postId") Long postId) {
         postService.deletePost(postId);
         return "redirect:/";
@@ -76,15 +80,5 @@ public class PostController {
         postService.savePost(post);
 
         return "redirect:/post/" + id;
-    }
-
-    @PostMapping("/post/{postId}/comment")
-    public String comment(@PathVariable("postId") Long postId, @Valid CommentForm commentForm) {
-
-        Post post = postService.findById(postId);
-        Comment comment = Comment.createComment(commentForm.getName(), commentForm.getContent(), commentForm.getPasswd(), post);
-        commentService.saveComment(comment);
-
-        return "redirect:/post/" + postId;
     }
 }

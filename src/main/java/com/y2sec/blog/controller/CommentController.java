@@ -1,7 +1,9 @@
 package com.y2sec.blog.controller;
 
 import com.y2sec.blog.domain.Comment;
+import com.y2sec.blog.domain.Post;
 import com.y2sec.blog.service.CommentService;
+import com.y2sec.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,27 @@ import javax.validation.Valid;
 public class CommentController {
 
     private final CommentService commentService;
+    private final PostService postService;
+
+    @PostMapping("/comment/new")
+    public String comment(@Valid CommentForm commentForm) {
+        System.out.println("CommentController.comment");
+        Post post = postService.findById(commentForm.getPostId());
+        Comment comment = Comment.createComment(commentForm.getName(), commentForm.getContent(), commentForm.getPasswd(), post);
+        commentService.saveComment(comment);
+
+        return "redirect:/post/" + commentForm.getPostId();
+    }
+
+    @GetMapping("/comment/new")
+    public String newComment(@Valid CommentForm commentForm) {
+        System.out.println("CommentController.newComment");
+        Post post = postService.findById(commentForm.getPostId());
+        Comment comment = Comment.createComment(commentForm.getName(), commentForm.getContent(), commentForm.getPasswd(), post);
+        commentService.saveComment(comment);
+
+        return "redirect:/post/" + commentForm.getPostId();
+    }
 
     @GetMapping("/comment/{id}/edit")
     public String updateForm(@PathVariable("id") Long id, Model model) {
