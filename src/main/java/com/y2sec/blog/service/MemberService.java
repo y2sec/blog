@@ -54,10 +54,10 @@ public class MemberService implements UserDetailsService {
 
         if (("y2sec").equals(username)) {
             System.out.println("MemberService.loadUserByUsername");
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         else {
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
         }
 
         return new User(member.getUsername(), member.getPassword(), authorities);
