@@ -53,20 +53,19 @@
 
             <hr>
 
-            <div class="row g-3" th:if="${#authorization.expr('isAuthenticated()')}">
+            <div class="row g-3" th:if="${#authorization.getAuthentication() != null and #authorization.expr('isAuthenticated()')}">
                 <div class="col">
                     <a class="btn btn-warning" th:href="@{/post/{id}/edit (id=${post.id})}">수정</a>
-
                 </div>
                 <div class="col text-end">
-                    <form method="post" th:action="@{/post/{id}/delete (id=${post.id})}">
-                        <button class="btn btn-danger" type="submit">삭제</button>
-                    </form>
+                    <a class="btn btn-danger" th:href="@{/post/{id}/delete (id=${post.id})}">삭제</a>
                 </div>
             </div>
 
-            <form th:action="@{/post/{id}/comment (id=${post.id})}" th:object="${commentForm}" method="post"
+
+            <form role="form" action="/comment/new" th:object="${commentForm}" method="get"
                   class="comment bg-light">
+                <input type="hidden" th:field="*{postId}">
                 <div class="row g-3">
                     <div class="form-group col-md-4">
                         <label th:for="name">아이디</label>
@@ -85,13 +84,13 @@
                         <textarea type="text" th:field="*{content}" class="form-control" placeholder="댓글을 입력하세요"
                                   maxlength="200" style="min-height: 120px; max-height: 120px;"></textarea>
                     </div>
-
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">등록</button>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">작성</button>
                 </div>
-                <br>
+
             </form>
+
 
             <div class="bg-light comment">
                 <label th:for="comment">댓글</label>
@@ -110,7 +109,8 @@
                         </div>
                         <div class="col-2 text-end">
                             <button th:data-id="${comment.id}" class="btn btn-warning"
-                                    onclick="openWin(this.getAttribute('data-id'))">수정</button>
+                                    onclick="openWin(this.getAttribute('data-id'))">수정
+                            </button>
                         </div>
                     </div>
 
