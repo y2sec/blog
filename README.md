@@ -2,24 +2,36 @@
 
 --------------
 
-**현재 도메인은 미적용 상태입니다.**
-
-URL : [y2sec's Blog](http://3.36.62.238:8080/)
+URL : [y2sec's Blog](http://y2sec.xyz/)
 
 
 
 
-+ 개발 스택
-  + Java
-  + SpringBoot
-  + SpringSecurity
-  + Thymeleaf
-  + JPA
-  + hibernate
-  + AWS EC2
-  + AWS RDS
-    + PostgreSQL
-  + H2 DataBase(Test)
++ 개발 환경
+	+ IntelliJ IDE
+	+ JAVA 11
+	+ SpringBoot 2.4.3
+	+ Gradle
+	+ AWS RDS
+		+ PostgreSQL 12
+	+ AWS EC2
+	+ H2 (TEST용 DB)
+
++ 라이브러리
+	+ Spring Web
+	+ Spring Security
+	+ JPA
+	+ Validation
+	+ Devtools
+	+ Lombok
+
++ 템플릿
+	+ Thymeleaf
+	+ bootstrap
+
++ 에디터
+	+ Editor.md
+		+ [https://pandao.github.io/editor.md/index.html](https://pandao.github.io/editor.md/index.html)
 
 **수정 및 개선사항**
 + View 개선이 필요
