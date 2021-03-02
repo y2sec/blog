@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://database-1.cggfnlp8tfrx.ap-northeast-2.rds.amazonaws.com:5432/blog
+
 #    url: jdbc:postgresql://localhost:5432/blog
     username: postgres
     password: rkdgus3835
@@ -16,3 +16,5 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+server:
+  port: 80
