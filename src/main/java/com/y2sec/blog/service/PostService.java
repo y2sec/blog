@@ -1,5 +1,6 @@
 package com.y2sec.blog.service;
 
+import com.y2sec.blog.controller.PostForm;
 import com.y2sec.blog.domain.Category;
 import com.y2sec.blog.domain.Post;
 import com.y2sec.blog.repository.PostRepository;
@@ -19,6 +20,15 @@ public class PostService {
     @Transactional
     public Long savePost(Post post) {
         return postRepository.save(post);
+    }
+
+    @Transactional
+    public Long updatePost(PostForm postForm) {
+        Post post = postRepository.findById(postForm.getId());
+        post.setTitle(postForm.getTitle());
+        post.setContent(postForm.getContent());
+
+        return post.getId();
     }
 
     @Transactional
