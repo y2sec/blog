@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter @Setter
 public class CommentForm {
 
+    private Long id;
     private Long postId;
     private String name;
     private String passwd;

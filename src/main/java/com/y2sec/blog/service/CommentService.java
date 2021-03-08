@@ -1,5 +1,6 @@
 package com.y2sec.blog.service;
 
+import com.y2sec.blog.controller.CommentForm;
 import com.y2sec.blog.domain.Comment;
 import com.y2sec.blog.domain.Post;
 import com.y2sec.blog.repository.CommentRepository;
@@ -24,6 +25,16 @@ public class CommentService {
     @Transactional
     public Long deleteComment(Long id) {
         return commentRepository.delete(id);
+    }
+
+    @Transactional
+    public Long updateComment(CommentForm commentForm) {
+        Comment comment = commentRepository.findById(commentForm.getId());
+
+        comment.setName(commentForm.getName());
+        comment.setContent(commentForm.getContent());
+
+        return comment.getId();
     }
 
     public Comment findById(Long id) {
