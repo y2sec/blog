@@ -76,9 +76,9 @@ public class PostController {
     @PostMapping("/post/{postId}/edit")
     public String update(@ModelAttribute("postForm") PostForm postForm, @PathVariable("postId") Long postId, Model model) {
         Post post = postService.findById(postId);
-        Long id = post.updatePost(postForm.getTitle(), postForm.getContent(), categoryService.findById(postForm.getCategoryId()));
-        postService.savePost(post);
-
+//        Long id = post.updatePost(postForm.getTitle(), postForm.getContent(), categoryService.findById(postForm.getCategoryId()));
+//        postService.savePost(post);
+        Long id = postService.updatePost(postForm);
         return "redirect:/post/" + id;
     }
 }
