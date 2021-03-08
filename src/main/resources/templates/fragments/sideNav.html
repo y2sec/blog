@@ -9,7 +9,7 @@
             <li class="nav-item" th:each="category : ${categoryList}">
                 <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id}/1 (id=${category.id})}">
                     <span th:text="${category.name}"></span>
-                    <!--- <span style="font-size: 6px">(<span th:text="${category.posts.size()}"></span>)</span> --->
+                    <span style="font-size: 6px">(<span th:text="${category.posts.size()}"></span>)</span>
                 </a>
             </li>
         </ul>
