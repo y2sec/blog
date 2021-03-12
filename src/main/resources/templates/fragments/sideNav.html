@@ -4,12 +4,12 @@
     <div class="margin-t-10">
         <span style="font-weight: bold">카테고리</span>
     </div>
+    <hr>
     <div class="position-sticky">
-        <ul class="nav flex-column mh-2">
+        <ul class="nav flex-column">
             <li class="nav-item" th:each="category : ${categoryList}">
                 <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id}/1 (id=${category.id})}">
                     <span th:text="${category.name}"></span>
-                    <span style="font-size: 6px">(<span th:text="${category.posts.size()}"></span>)</span>
                 </a>
             </li>
         </ul>
