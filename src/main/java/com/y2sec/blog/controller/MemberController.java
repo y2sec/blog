@@ -25,13 +25,4 @@ public class MemberController {
     public String loginSuccess() {
         return "redirect:/";
     }
-
-    @GetMapping("/member/y2sec")
-    public String createMember() {
-        Member member = Member.createMember("y2sec", "rkdgus@3835");
-        memberService.join(member);
-
-        return "redirect:/";
-    }
-
 }
