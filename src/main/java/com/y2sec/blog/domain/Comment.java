@@ -26,7 +26,7 @@ public class Comment {
 
     private String commentDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
     private Post post;
 

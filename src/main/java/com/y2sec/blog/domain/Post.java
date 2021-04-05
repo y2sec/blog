@@ -18,12 +18,12 @@ public class Post {
 
     private String title;
 
-    @Lob
+    @Column(columnDefinition="TEXT")
     private String content;
 
     private int views;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
