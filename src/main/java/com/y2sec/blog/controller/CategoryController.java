@@ -42,6 +42,7 @@ public class CategoryController {
 
         model.addAttribute("categoryList", categoryService.findCategory());
         model.addAttribute("pageNumber", 1);
+        model.addAttribute("postSize", posts.size());
         model.addAttribute("category", category);
         model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (pageNum-1) * 10), (int)Math.min(posts.size(), pageNum * 10)));
 
