@@ -15,10 +15,8 @@ public class CommentRepository {
     private final EntityManager em;
 
     public Long save(Comment comment) {
-        if (comment.getId() == null)
-            em.persist(comment);
-        else
-            em.merge(comment);
+        em.persist(comment);
+
         return comment.getPost().getId();
     }
 
