@@ -33,35 +33,35 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled" th:if="${pageNumber} == 1">
-                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}-1)}"
+                        <a class="page-link" th:href="@{/(page = ${pageNumber}-1)}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li class="page-item" th:unless="${pageNumber} == 1">
-                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}-1)}"
+                        <a class="page-link" th:href="@{/(page = ${pageNumber}-1)}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <th:block th:each="pageNum : ${#numbers.sequence(1, postSize, 10)}">
                         <li class="page-item active" th:if="(${pageNum}-1)/10+1 == ${pageNumber}" aria-current="page">
-                            <a class="page-link" th:href="@{/total/{pageNum} (pageNum=(${pageNum}-1)/10+1)}"
+                            <a class="page-link" th:href="@{/(page=(${pageNum}-1)/10+1)}"
                                th:text="(${pageNum}-1)/10+1"></a>
                         </li>
                         <li class="page-item" th:unless="(${pageNum}-1)/10+1 == ${pageNumber}">
-                            <a class="page-link" th:href="@{/total/{pageNum} (pageNum=(${pageNum}-1)/10+1)}"
+                            <a class="page-link" th:href="@{/(page=(${pageNum}-1)/10+1)}"
                                th:text="(${pageNum}-1)/10+1"></a>
                         </li>
                     </th:block>
                     <li class="page-item disabled" th:if="${postSize} <= ${pageNumber} * 10">
-                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}+1)}"
+                        <a class="page-link" th:href="@{/(page = ${pageNumber}+1)}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                     <li class="page-item" th:unless="${postSize} <= ${pageNumber} * 10">
-                        <a class="page-link" th:href="@{/total/{pageNum} (pageNum = ${pageNumber}+1)}"
+                        <a class="page-link" th:href="@{/(page = ${pageNumber}+1)}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -72,9 +72,6 @@
                 <a class="btn btn-primary" th:href="@{/post/new}" th:if="${#authorization.expr('isAuthenticated()')}">게시글
                     쓰기</a>
             </div>
-
-
-
         </main>
         <div th:replace="fragments/footer :: footer"></div>
 

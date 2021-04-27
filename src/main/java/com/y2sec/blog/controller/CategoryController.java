@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,16 +36,16 @@ public class CategoryController {
         return "redirect:/";
     }
 
-    @GetMapping("/category/{id}/{pageNum}")
-    public String categoryForm(@PathVariable("id") Long id, @PathVariable("pageNum") Long pageNum, Model model) {
+    @GetMapping("/category/{id}")
+    public String categoryForm(@PathVariable("id") long id, @RequestParam(name = "page", required = false, defaultValue = "1") long page, Model model) {
         Category category = categoryService.findById(id);
         List<Post> posts = postService.findByCategory(category);
 
         model.addAttribute("categoryList", categoryService.findCategory());
-        model.addAttribute("pageNumber", 1);
+        model.addAttribute("pageNumber", page);
         model.addAttribute("postSize", posts.size());
         model.addAttribute("category", category);
-        model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (pageNum-1) * 10), (int)Math.min(posts.size(), pageNum * 10)));
+        model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (page-1) * 10), (int)Math.min(posts.size(), page * 10)));
 
         return "category/categoryForm";
     }

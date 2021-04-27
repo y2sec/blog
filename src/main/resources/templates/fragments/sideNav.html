@@ -8,7 +8,7 @@
     <div class="position-sticky">
         <ul class="nav flex-column">
             <li class="nav-item" th:each="category : ${categoryList}">
-                <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id}/1 (id=${category.id})}">
+                <a class="nav-link active hoverlink" aria-current="page" th:href="@{/category/{id} (id=${category.id})}">
                     <span th:text="${category.name}"></span>
                     <span class="post_num">
                         (<span th:text="${category.posts.size}"></span>)

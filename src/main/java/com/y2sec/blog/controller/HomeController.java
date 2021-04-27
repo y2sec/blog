@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,26 +20,14 @@ public class HomeController {
     private final PostService postService;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(@RequestParam(name = "page", required = false, defaultValue = "1") long page, Model model) {
 
         List<Post> posts = postService.findPosts();
 
         model.addAttribute("categoryList", categoryService.findCategory());
-        model.addAttribute("pageNumber", 1);
+        model.addAttribute("pageNumber", page);
         model.addAttribute("postSize", posts.size());
-        model.addAttribute("postList", posts.subList(0, Math.min(posts.size(), 10)));
-
-        return "home";
-    }
-
-    @GetMapping("/total/{id}")
-    public String pageHome(@PathVariable("id") Long id, Model model) {
-        List<Post> posts = postService.findPosts();
-
-        model.addAttribute("categoryList", categoryService.findCategory());
-        model.addAttribute("pageNumber", id);
-        model.addAttribute("postSize", posts.size());
-        model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (id-1) * 10), (int)Math.min(posts.size(), id * 10)));
+        model.addAttribute("postList", posts.subList((int)Math.min((posts.size() / 10) * 10, (page-1) * 10), (int)Math.min(posts.size(), page * 10)));
 
         return "home";
     }
